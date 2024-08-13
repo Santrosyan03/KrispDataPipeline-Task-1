@@ -51,8 +51,8 @@ KrispDataPipeline/
 #### 1) Clone the repository:
 
 ```bash
-git clone https://github.com/Santrosyan03/Krisp-Data-Pipeline.git
-cd Krisp-Data-Pipeline
+git clone https://github.com/Santrosyan03/KrispDataPipeline-Task-1.git
+cd KrispDataPipeline-Task-1
 ```
 
 #### 2) Build and Start the Containers:
