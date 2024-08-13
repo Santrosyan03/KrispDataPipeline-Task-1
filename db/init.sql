@@ -214,20 +214,3 @@ CREATE TRIGGER update_session_timezone
     FOR EACH ROW
 EXECUTE FUNCTION update_user_session_timezone();
 ------------------------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION prevent_duplicate_timezones()
-    RETURNS TRIGGER AS $$
-BEGIN
-    IF EXISTS (
-        SELECT 1 FROM timezones WHERE timezone_code = NEW.timezone_code
-    ) THEN
-        RAISE EXCEPTION 'Timezone code % already exists. Insert prevented.', NEW.timezone_code;
-    END IF;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER check_unique_timezone_code
-    BEFORE INSERT OR UPDATE ON timezones
-    FOR EACH ROW
-EXECUTE FUNCTION prevent_duplicate_timezones();
-

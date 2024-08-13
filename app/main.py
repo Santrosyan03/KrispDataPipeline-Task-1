@@ -60,19 +60,6 @@ def insert_event(cursor, user_session_id, event_start, event):
     cursor.execute(query, (user_session_id, event_start, event))
 
 
-def show(cursor):
-    query = """
-                SELECT * FROM  users;
-                SELECT * FROM  sessions;
-                SELECT * FROM  timezones;
-                SELECT * FROM  user_session_pivot;
-                SELECT * FROM  sentiments;
-                SELECT * FROM  events;                
-            """
-    cursor.execute(query)
-    return cursor.fetchall()
-
-
 def main():
     connection = psycopg2.connect(
         database="metrics_db",
@@ -92,8 +79,6 @@ def main():
                               datetime(2024, 8, 9, 13, 34, 56), 150.5, 1.0, 1.0)
     insert_sentiment(cursor, 1, datetime(2024, 8, 9, 12, 34, 56), datetime(2024, 8, 9, 12, 54, 56), 'positive')
     insert_event(cursor, 1, datetime(2024, 8, 9, 12, 34, 56), 'call_started')
-
-    print(show(cursor))
 
     connection.commit()
     cursor.close()
